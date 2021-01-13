@@ -37,15 +37,16 @@ use rdfInterface\DefaultGraph;
  *
  * @author zozlak
  */
-class NtriplesUtil {
+class NtriplesUtil
+{
 
     /**
      * Characters forbidden in n-triples literals according to
      * https://www.w3.org/TR/n-triples/#grammar-production-IRIREF
-     * 
+     *
      * @var string[]
      */
-    static private $iriEscapeMap = array(
+    private static $iriEscapeMap = array(
         "<"    => "\\u003C",
         ">"    => "\\u003E",
         '"'    => "\\u0022",
@@ -95,22 +96,25 @@ class NtriplesUtil {
      * https://www.w3.org/TR/n-triples/#grammar-production-STRING_LITERAL_QUOTE
      * @var string[]
      */
-    static private $literalEscapeMap = array(
+    private static $literalEscapeMap = array(
         "\n" => '\\n',
         "\r" => '\\r',
         '"'  => '\\"',
         '\\' => '\\\\'
     );
 
-    static public function escapeLiteral(string $str): string {
+    public static function escapeLiteral(string $str): string
+    {
         return strtr($str, self::$literalEscapeMap);
     }
 
-    static public function escapeIri(string $str): string {
+    public static function escapeIri(string $str): string
+    {
         return strtr($str, self::$iriEscapeMap);
     }
 
-    static public function serialiseIri(NamedNode|BlankNode $res): string {
+    public static function serialiseIri(NamedNode | BlankNode $res): string
+    {
         if ($res instanceof DefaultGraph) {
             return '';
         }
@@ -122,7 +126,8 @@ class NtriplesUtil {
         }
     }
 
-    static public function serialiseLiteral(Literal $literal): string {
+    public static function serialiseLiteral(Literal $literal): string
+    {
         $langtype = '@' . $literal->getLang();
         if ($langtype === '@') {
             $langtype = $literal->getDatatype();
@@ -131,12 +136,12 @@ class NtriplesUtil {
         return self::escapeLiteral($literal->getValue()) . $langtype;
     }
 
-    static public function serialise(NamedNode|BlankNode|Literal $term): string {
+    public static function serialise(NamedNode | BlankNode | Literal $term): string
+    {
         if ($term instanceof Literal) {
             return self::serialiseLiteral($term);
         } else {
             return self::serialiseIri($term);
         }
     }
-
 }

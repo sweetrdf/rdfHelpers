@@ -29,12 +29,13 @@ namespace rdfHelpers;
 use rdfInterface\Quad;
 
 /**
- * Wrapper making almost anything (e.g. array, generator or a single Quad object) 
+ * Wrapper making almost anything (e.g. array, generator or a single Quad object)
  * a QuadIterator.
  *
  * @author zozlak
  */
-class GenericQuadIterator implements \rdfInterface\QuadIterator {
+class GenericQuadIterator implements \rdfInterface\QuadIterator
+{
 
     /**
      *
@@ -42,7 +43,8 @@ class GenericQuadIterator implements \rdfInterface\QuadIterator {
      */
     private $iter;
 
-    public function __construct(iterable|Quad $iter) {
+    public function __construct(iterable | Quad $iter)
+    {
         if ($iter instanceof Quad) {
             $iter = [$iter];
         }
@@ -55,24 +57,28 @@ class GenericQuadIterator implements \rdfInterface\QuadIterator {
         }
     }
 
-    public function current(): \rdfInterface\Quad {
+    public function current(): \rdfInterface\Quad
+    {
         return $this->iter->current();
     }
 
-    public function key(): \scalar {
+    public function key()
+    {
         return $this->iter->key();
     }
 
-    public function next(): void {
+    public function next(): void
+    {
         $this->iter->next();
     }
 
-    public function rewind(): void {
+    public function rewind(): void
+    {
         $this->iter->rewind();
     }
 
-    public function valid(): bool {
+    public function valid(): bool
+    {
         return $this->iter->valid();
     }
-
 }

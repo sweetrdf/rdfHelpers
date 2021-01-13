@@ -31,6 +31,7 @@ namespace rdfHelpers;
  *
  * @author zozlak
  */
-class RdfHelpersException extends \Exception {
-    
+class RdfHelpersException extends \Exception
+{
+
 }
