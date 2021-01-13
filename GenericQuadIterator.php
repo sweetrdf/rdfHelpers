@@ -26,6 +26,7 @@
 
 namespace rdfHelpers;
 
+use Iterator;
 use rdfInterface\Quad;
 
 /**
@@ -39,25 +40,27 @@ class GenericQuadIterator implements \rdfInterface\QuadIterator
 
     /**
      *
-     * @var \Iterator
+     * @var Iterator<Quad>
      */
-    private $iter;
+    private Iterator $iter;
 
-    public function __construct(iterable | Quad $iter)
+    /**
+     *
+     * @param array<Quad>|Iterator<Quad>|Quad $iter
+     */
+    public function __construct(array | Iterator | Quad $iter)
     {
         if ($iter instanceof Quad) {
             $iter = [$iter];
         }
         if (is_array($iter)) {
             $this->iter = new \ArrayIterator($iter);
-        } elseif ($iter instanceof \IteratorAggregate) {
-            $this->iter = $iter->getIterator();
         } else {
             $this->iter = $iter;
         }
     }
 
-    public function current(): \rdfInterface\Quad
+    public function current(): Quad
     {
         return $this->iter->current();
     }
