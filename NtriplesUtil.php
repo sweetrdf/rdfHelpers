@@ -118,7 +118,7 @@ class NtriplesUtil
         if ($res instanceof DefaultGraph) {
             return '';
         }
-        $escaped = self::escapeIri($res->getValue());
+        $escaped = self::escapeIri((string) $res->getValue());
         if (substr($res, 0, 2) == '_:') {
             return $escaped;
         } else {
@@ -133,7 +133,7 @@ class NtriplesUtil
             $langtype = $literal->getDatatype();
             $langtype = $langtype == RDF::XSD_STRING ?: '^^<' . self::escapeIri($literal->getDatatype()) . '>';
         }
-        return self::escapeLiteral($literal->getValue()) . $langtype;
+        return self::escapeLiteral((string) $literal->getValue()) . $langtype;
     }
 
     public static function serialise(NamedNode | BlankNode | Literal $term): string
