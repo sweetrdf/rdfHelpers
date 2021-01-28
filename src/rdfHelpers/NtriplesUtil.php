@@ -113,7 +113,7 @@ class NtriplesUtil
         return strtr($str, self::$iriEscapeMap);
     }
 
-    public static function serialiseIri(NamedNode | BlankNode $res): string
+    public static function serializeIri(NamedNode | BlankNode $res): string
     {
         if ($res instanceof DefaultGraph) {
             return '';
@@ -126,7 +126,7 @@ class NtriplesUtil
         }
     }
 
-    public static function serialiseLiteral(Literal $literal): string
+    public static function serializeLiteral(Literal $literal): string
     {
         $langtype = '@' . $literal->getLang();
         if ($langtype === '@') {
@@ -136,12 +136,12 @@ class NtriplesUtil
         return self::escapeLiteral((string) $literal->getValue()) . $langtype;
     }
 
-    public static function serialise(NamedNode | BlankNode | Literal $term): string
+    public static function serialize(NamedNode | BlankNode | Literal $term): string
     {
         if ($term instanceof Literal) {
-            return self::serialiseLiteral($term);
+            return self::serializeLiteral($term);
         } else {
-            return self::serialiseIri($term);
+            return self::serializeIri($term);
         }
     }
 }
