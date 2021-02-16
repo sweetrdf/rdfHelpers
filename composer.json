@@ -1,5 +1,5 @@
 {
-    "name": "zozlak/rdf-helpers",
+    "name": "sweetrdf/rdf-helpers",
     "type": "library",
     "description": "Yet another RDF library",
     "keywords": [],
@@ -15,7 +15,7 @@
     "require": {
         "php": ">=8.0",
         "zozlak/rdf-constants": "^1.1",
-        "zozlak/rdf-interface": "*"
+        "sweetrdf/rdf-interface": "*"
     },
     "autoload": {
         "psr-4": {
