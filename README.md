@@ -1,11 +1,11 @@
 # rdfHelpers
 
-A set of helper classes for implementing the [rdfInterface](https://github.com/zozlak/rdfInterface).
+A set of helper classes for implementing the [rdfInterface](https://github.com/sweetrdf/rdfInterface).
 
 ## Installation
 
 * Obtain the [Composer](https://getcomposer.org)
-* Run `composer require zozlak/rdf-helpers`
+* Run `composer require sweetrdf/rdf-helpers`
 
 ## Usage
 
