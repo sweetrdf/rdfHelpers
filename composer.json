@@ -1,7 +1,7 @@
 {
     "name": "sweetrdf/rdf-helpers",
     "type": "library",
-    "description": "Yet another RDF library",
+    "description": "Set of low level helpers for implementing rdfInterface",
     "keywords": [],
     "homepage": "https://github.com/sweetrdf/rdfHelpers",
     "license": "MIT",
