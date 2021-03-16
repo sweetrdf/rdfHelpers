@@ -11,14 +11,14 @@ namespace rdfHelpers;
 use BadMethodCallException;
 use Stringable;
 use rdfInterface\Term;
-use rdfInterface\DefaultGraph;
+use rdfInterface\DefaultGraph as iDefaultGraph;
 
 /**
  * Description of DefaultGraph
  *
  * @author zozlak
  */
-class DefaultGraph implements DefaultGraph {
+class DefaultGraph implements iDefaultGraph {
 
     public function __construct() {
         
@@ -29,11 +29,11 @@ class DefaultGraph implements DefaultGraph {
     }
 
     public function getType(): string {
-        return rdfInterface\TYPE_DEFAULT_GRAPH;
+        return \rdfInterface\TYPE_DEFAULT_GRAPH;
     }
 
     public function getValue(): int | float | string | bool | Stringable {
-        throw new BadMethodCallException();
+        return '';
     }
 
     public function equals(Term $term): bool {
