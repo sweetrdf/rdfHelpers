@@ -8,9 +8,8 @@
 
 namespace rdfHelpers;
 
-use BadMethodCallException;
 use Stringable;
-use rdfInterface\Term;
+use rdfInterface\Term as iTerm;
 use rdfInterface\DefaultGraph as iDefaultGraph;
 
 /**
@@ -25,18 +24,14 @@ class DefaultGraph implements iDefaultGraph {
     }
 
     public function __toString(): string {
-        return $this->getType();
-    }
-
-    public function getType(): string {
-        return \rdfInterface\TYPE_DEFAULT_GRAPH;
+        return '__DefaultGraph__';
     }
 
     public function getValue(): int | float | string | bool | Stringable {
         return '';
     }
 
-    public function equals(Term $term): bool {
-        return $term->getType() === $this->getType();
+    public function equals(iTerm $term): bool {
+        return $term instanceof iDefaultGraph;
     }
 }
