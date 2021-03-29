@@ -37,8 +37,7 @@ use rdfInterface\DefaultGraph;
  *
  * @author zozlak
  */
-class NtriplesUtil
-{
+class NtriplesUtil {
 
     /**
      * Characters forbidden in n-triples literals according to
@@ -103,18 +102,15 @@ class NtriplesUtil
         '\\' => '\\\\'
     );
 
-    public static function escapeLiteral(string $str): string
-    {
+    public static function escapeLiteral(string $str): string {
         return strtr($str, self::$literalEscapeMap);
     }
 
-    public static function escapeIri(string $str): string
-    {
+    public static function escapeIri(string $str): string {
         return strtr($str, self::$iriEscapeMap);
     }
 
-    public static function serializeIri(NamedNode | BlankNode $res): string
-    {
+    public static function serializeIri(NamedNode | BlankNode $res): string {
         if ($res instanceof DefaultGraph) {
             return '';
         }
@@ -126,18 +122,16 @@ class NtriplesUtil
         }
     }
 
-    public static function serializeLiteral(Literal $literal): string
-    {
+    public static function serializeLiteral(Literal $literal): string {
         $langtype = '@' . $literal->getLang();
         if ($langtype === '@') {
             $langtype = $literal->getDatatype();
-            $langtype = $langtype == RDF::XSD_STRING ?: '^^<' . self::escapeIri($literal->getDatatype()) . '>';
+            $langtype = $langtype == RDF::XSD_STRING ? '' : '^^<' . self::escapeIri($literal->getDatatype()) . '>';
         }
-        return self::escapeLiteral((string) $literal->getValue()) . $langtype;
+        return '"' . self::escapeLiteral((string) $literal->getValue()) . '"' . $langtype;
     }
 
-    public static function serialize(NamedNode | BlankNode | Literal $term): string
-    {
+    public static function serialize(NamedNode | BlankNode | Literal $term): string {
         if ($term instanceof Literal) {
             return self::serializeLiteral($term);
         } else {
