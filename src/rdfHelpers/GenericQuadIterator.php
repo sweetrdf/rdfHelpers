@@ -27,6 +27,7 @@
 namespace rdfHelpers;
 
 use Iterator;
+use IteratorAggregate;
 use rdfInterface\Quad;
 
 /**
@@ -35,8 +36,7 @@ use rdfInterface\Quad;
  *
  * @author zozlak
  */
-class GenericQuadIterator implements \rdfInterface\QuadIterator
-{
+class GenericQuadIterator implements \rdfInterface\QuadIterator {
 
     /**
      *
@@ -46,42 +46,41 @@ class GenericQuadIterator implements \rdfInterface\QuadIterator
 
     /**
      *
-     * @param array<Quad>|Iterator<Quad>|Quad $iter
+     * @param array<Quad>|Iterator<Quad>|IteratorAggregate<Quad>|Quad $iter
      */
-    public function __construct(array | Iterator | Quad $iter)
-    {
+    public function __construct(array | Iterator | IteratorAggregate | Quad $iter) {
         if ($iter instanceof Quad) {
             $iter = [$iter];
         }
         if (is_array($iter)) {
             $this->iter = new \ArrayIterator($iter);
+        } elseif ($iter instanceof IteratorAggregate) {
+            do {
+                $iter = $iter->getIterator();
+            } while ($iter instanceof IteratorAggregate);
+            $this->iter = $iter;
         } else {
             $this->iter = $iter;
         }
     }
 
-    public function current(): Quad
-    {
+    public function current(): Quad {
         return $this->iter->current();
     }
 
-    public function key()
-    {
+    public function key() {
         return $this->iter->key();
     }
 
-    public function next(): void
-    {
+    public function next(): void {
         $this->iter->next();
     }
 
-    public function rewind(): void
-    {
+    public function rewind(): void {
         $this->iter->rewind();
     }
 
-    public function valid(): bool
-    {
+    public function valid(): bool {
         return $this->iter->valid();
     }
 }
