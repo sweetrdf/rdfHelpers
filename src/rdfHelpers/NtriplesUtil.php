@@ -30,6 +30,7 @@ use zozlak\RdfConstants as RDF;
 use rdfInterface\NamedNode;
 use rdfInterface\BlankNode;
 use rdfInterface\Literal;
+use rdfInterface\Quad;
 use rdfInterface\DefaultGraph;
 
 /**
@@ -131,9 +132,24 @@ class NtriplesUtil {
         return '"' . self::escapeLiteral((string) $literal->getValue()) . '"' . $langtype;
     }
 
-    public static function serialize(NamedNode | BlankNode | Literal $term): string {
+    public static function serializeQuad(Quad $quad): string {
+        $sbj   = self::serialize($quad->getSubject());
+        $pred  = self::serializeIri($quad->getPredicate());
+        $obj   = self::serialize($quad->getObject());
+        $graph = $quad->getGraph();
+        if ($graph !== null && !($graph instanceof DefaultGraph)) {
+            $graph = NtriplesUtil::serializeIri($graph);
+        } else {
+            $graph = '';
+        }
+        return "<< $sbj $pred $obj $graph >>";
+    }
+
+    public static function serialize(NamedNode | BlankNode | Literal | Quad $term): string {
         if ($term instanceof Literal) {
             return self::serializeLiteral($term);
+        } elseif ($term instanceof Quad) {
+            return self::serializeQuad($term);
         } else {
             return self::serializeIri($term);
         }
