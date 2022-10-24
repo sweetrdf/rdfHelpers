@@ -28,7 +28,7 @@ namespace rdfHelpers;
 
 use Iterator;
 use IteratorAggregate;
-use rdfInterface\Quad;
+use rdfInterface\QuadInterface as Quad;
 
 /**
  * Wrapper making almost anything (e.g. array, generator or a single Quad object)
@@ -36,7 +36,7 @@ use rdfInterface\Quad;
  *
  * @author zozlak
  */
-class GenericQuadIterator implements \rdfInterface\QuadIterator {
+class GenericQuadIterator implements \rdfInterface\QuadIteratorInterface {
 
     /**
      *
@@ -68,7 +68,7 @@ class GenericQuadIterator implements \rdfInterface\QuadIterator {
         return $this->iter->current();
     }
 
-    public function key() {
+    public function key(): mixed {
         return $this->iter->key();
     }
 

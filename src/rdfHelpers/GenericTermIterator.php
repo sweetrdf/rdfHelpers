@@ -28,15 +28,15 @@ namespace rdfHelpers;
 
 use Iterator;
 use IteratorAggregate;
-use rdfInterface\Term;
+use rdfInterface\TermInterface as Term;
 
 /**
- * Wrapper making almost anything (e.g. array, generator or a single Quad object)
- * a QuadIterator.
+ * Wrapper making almost anything (e.g. array, generator or a single 
+ * QuadInterface object) a QuadIteratorInterface.
  *
  * @author zozlak
  */
-class GenericTermIterator implements \rdfInterface\TermIterator {
+class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
 
     /**
      *
@@ -68,7 +68,7 @@ class GenericTermIterator implements \rdfInterface\TermIterator {
         return $this->iter->current();
     }
 
-    public function key() {
+    public function key(): mixed {
         return $this->iter->key();
     }
 

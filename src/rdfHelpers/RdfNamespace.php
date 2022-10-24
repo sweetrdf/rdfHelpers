@@ -28,7 +28,7 @@ namespace rdfHelpers;
 
 use OutOfBoundsException;
 use BadMethodCallException;
-use rdfInterface\NamedNode;
+use rdfInterface\NamedNodeInterface as NamedNode;
 
 /**
  * Provides an implementation of rdfInterface\RdfNamespace.
@@ -41,7 +41,7 @@ use rdfInterface\NamedNode;
  *
  * @author zozlak
  */
-abstract class RdfNamespace implements \rdfInterface\RdfNamespace {
+abstract class RdfNamespace implements \rdfInterface\RdfNamespaceInterface {
 
     abstract protected function getNamedNode(string $iri): NamedNode;
 

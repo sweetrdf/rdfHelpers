@@ -9,8 +9,8 @@
 namespace rdfHelpers;
 
 use Stringable;
-use rdfInterface\Term as iTerm;
-use rdfInterface\DefaultGraph as iDefaultGraph;
+use rdfInterface\TermInterface as iTerm;
+use rdfInterface\DefaultGraphInterface as iDefaultGraph;
 
 /**
  * Description of DefaultGraph

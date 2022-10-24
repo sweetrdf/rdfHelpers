@@ -27,11 +27,11 @@
 namespace rdfHelpers;
 
 use zozlak\RdfConstants as RDF;
-use rdfInterface\NamedNode;
-use rdfInterface\BlankNode;
-use rdfInterface\Literal;
-use rdfInterface\Quad;
-use rdfInterface\DefaultGraph;
+use rdfInterface\NamedNodeInterface as NamedNode;
+use rdfInterface\BlankNodeInterface as BlankNode;
+use rdfInterface\LiteralInterface as Literal;
+use rdfInterface\QuadInterface as Quad;
+use rdfInterface\DefaultGraphInterface as DefaultGraph;
 
 /**
  * Description of Util
@@ -46,7 +46,7 @@ class NtriplesUtil {
      *
      * @var string[]
      */
-    private static $iriEscapeMap = array(
+    private static $iriEscapeMap = [
         "<"    => "\\u003C",
         ">"    => "\\u003E",
         '"'    => "\\u0022",
@@ -89,19 +89,19 @@ class NtriplesUtil {
         "\x1E" => "\\u001E",
         "\x1F" => "\\u001F",
         "\x20" => "\\u0020",
-    );
+    ];
 
     /**
      * Characters forbidden in n-triples literals according to
      * https://www.w3.org/TR/n-triples/#grammar-production-STRING_LITERAL_QUOTE
      * @var string[]
      */
-    private static $literalEscapeMap = array(
+    private static $literalEscapeMap = [
         "\n" => '\\n',
         "\r" => '\\r',
         '"'  => '\\"',
         '\\' => '\\\\'
-    );
+    ];
 
     public static function escapeLiteral(string $str): string {
         return strtr($str, self::$literalEscapeMap);
