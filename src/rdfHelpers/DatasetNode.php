@@ -26,9 +26,13 @@
 
 namespace rdfHelpers;
 
+use Generator;
 use rdfInterface\DatasetNodeInterface;
 use rdfInterface\DatasetInterface;
 use rdfInterface\TermInterface;
+use rdfInterface\QuadIteratorInterface;
+use rdfInterface\QuadIteratorAggregateInterface;
+use rdfInterface\QuadCompareInterface;
 
 /**
  * Description of Node
@@ -59,5 +63,36 @@ class DatasetNode implements DatasetNodeInterface {
 
     public function withNode(TermInterface $term): DatasetNodeInterface {
         return new DatasetNode($this->dataset, $term);
+    }
+
+    /**
+     * Returns QuadIteratorInterface iterating over node's quads.
+     * 
+     * If $filter is provided, the iterator includes only quads matching the
+     * filter.
+     * 
+     * $filter can be specified as:
+     * 
+     * - An object implementing the \rdfInterface\QuadCompareInterface
+     *   (e.g. a single Quad)
+     * - An object implementing the \rdfInterface\QuadIteratorInterface
+     *   (e.g. another Dataset)
+     * - A callable with signature `fn(\rdfInterface\QuadInterface, \rdfInterface\DatasetInterface): bool`
+     *   All quads for which the callable returns true are copied.
+     * 
+     * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
+     * @return QuadIteratorInterface
+     */
+    public function getIterator(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): QuadIteratorInterface {
+        $iter = $this->dataset->getIterator($filter);
+        return new GenericQuadIterator($this->filterNode($iter));
+    }
+
+    private function filterNode(QuadIteratorInterface $quads): Generator {
+        foreach ($quads as $i) {
+            if ($this->node->equals($i->getSubject())) {
+                yield $i;
+            }
+        }
     }
 }
