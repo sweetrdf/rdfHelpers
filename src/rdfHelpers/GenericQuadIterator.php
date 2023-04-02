@@ -81,6 +81,10 @@ class GenericQuadIterator implements \rdfInterface\QuadIteratorInterface {
     }
 
     public function valid(): bool {
-        return $this->iter->valid();
+        try {
+            return $this->iter->valid();
+        } catch (OutOfBoundsException) {
+            return false;
+        }
     }
 }
