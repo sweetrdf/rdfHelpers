@@ -28,6 +28,7 @@ namespace rdfHelpers;
 
 use Iterator;
 use IteratorAggregate;
+use OutOfBoundsException;
 use rdfInterface\QuadInterface as Quad;
 
 /**
