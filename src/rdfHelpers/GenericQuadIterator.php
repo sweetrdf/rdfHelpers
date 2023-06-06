@@ -28,6 +28,7 @@ namespace rdfHelpers;
 
 use Iterator;
 use IteratorAggregate;
+use OutOfBoundsException;
 use rdfInterface\QuadInterface as Quad;
 
 /**
@@ -81,6 +82,10 @@ class GenericQuadIterator implements \rdfInterface\QuadIteratorInterface {
     }
 
     public function valid(): bool {
-        return $this->iter->valid();
+        try {
+            return $this->iter->valid();
+        } catch (OutOfBoundsException) {
+            return false;
+        }
     }
 }
