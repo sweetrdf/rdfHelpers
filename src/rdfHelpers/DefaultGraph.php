@@ -50,6 +50,6 @@ class DefaultGraph implements DefaultGraphInterface {
     }
 
     public function equals(TermCompareInterface $term): bool {
-        return $term instanceof iDefaultGraph;
+        return $term instanceof DefaultGraphInterface;
     }
 }
