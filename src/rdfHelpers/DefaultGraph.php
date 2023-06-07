@@ -27,15 +27,15 @@
 namespace rdfHelpers;
 
 use Stringable;
-use rdfInterface\TermInterface as iTerm;
-use rdfInterface\DefaultGraphInterface as iDefaultGraph;
+use rdfInterface\TermCompareInterface;
+use rdfInterface\DefaultGraphInterface;
 
 /**
  * Description of DefaultGraph
  *
  * @author zozlak
  */
-class DefaultGraph implements iDefaultGraph {
+class DefaultGraph implements DefaultGraphInterface {
 
     public function __construct() {
         
@@ -49,7 +49,7 @@ class DefaultGraph implements iDefaultGraph {
         return '';
     }
 
-    public function equals(iTerm $term): bool {
+    public function equals(TermCompareInterface $term): bool {
         return $term instanceof iDefaultGraph;
     }
 }
