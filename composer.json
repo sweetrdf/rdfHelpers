@@ -15,7 +15,7 @@
     "require": {
         "php": ">=8.0",
         "zozlak/rdf-constants": "^1.1",
-        "sweetrdf/rdf-interface": "^1.1.0-RC4"
+        "sweetrdf/rdf-interface": "^1 | ^2.0.0-RC1"
     },
     "autoload": {
         "psr-4": {
