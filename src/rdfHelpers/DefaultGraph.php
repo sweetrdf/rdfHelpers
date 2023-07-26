@@ -27,6 +27,7 @@
 namespace rdfHelpers;
 
 use Stringable;
+use rdfInterface\TermInterface;
 use rdfInterface\TermCompareInterface;
 use rdfInterface\DefaultGraphInterface;
 
@@ -49,7 +50,7 @@ class DefaultGraph implements DefaultGraphInterface {
         return '';
     }
 
-    public function equals(TermCompareInterface $term): bool {
+    public function equals(TermCompareInterface | TermInterface $term): bool {
         return $term instanceof DefaultGraphInterface;
     }
 }
