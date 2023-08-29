@@ -29,6 +29,7 @@ namespace rdfHelpers;
 use Generator;
 use Iterator;
 use IteratorAggregate;
+use Traversable;
 use rdfInterface\TermInterface;
 use rdfInterface\TermCompareInterface;
 
@@ -45,6 +46,8 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
      * @var Iterator<TermInterface>
      */
     private Iterator $iter;
+    private GenericTermIterator $skip;
+    private GenericTermIterator $intersect;
 
     /**
      *
@@ -75,7 +78,10 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
     }
 
     public function next(): void {
-        $this->iter->next();
+        do {
+            $this->iter->next();
+            $valid = $this->iter->valid() && (!isset($this->skip) || !$this->skip->contains($this->iter->current())) && (!isset($this->intersect) || $this->intersect->contains($this->iter->current()));
+        } while ($valid);
     }
 
     public function rewind(): void {
@@ -103,5 +109,33 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
         foreach ($this->iter as $i) {
             yield $i->getValue();
         }
+    }
+
+    /**
+     * 
+     * @param array<TermInterface>|Iterator<TermInterface>|IteratorAggregate<TermInterface>|TermInterface $terms
+     * @return self
+     */
+    public function skip(array | Iterator | IteratorAggregate | TermInterface $terms): self {
+        $iter       = new GenericTermIterator($this->iter);
+        $iter->skip = new GenericTermIterator($terms);
+        if (isset($this->intersect)) {
+            $iter->intersect = $this->intersect;
+        }
+        return $iter;
+    }
+
+    /**
+     * 
+     * @param array<TermInterface>|Iterator<TermInterface>|IteratorAggregate<TermInterface>|TermInterface $terms
+     * @return self
+     */
+    public function intersect(array | Iterator | IteratorAggregate | TermInterface $terms): self {
+        $iter            = new GenericTermIterator($this->iter);
+        $iter->intersect = new GenericTermIterator($terms);
+        if (isset($this->skip)) {
+            $iter->skip = $this->skip;
+        }
+        return $iter;
     }
 }
