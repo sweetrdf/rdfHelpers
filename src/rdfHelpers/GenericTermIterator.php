@@ -26,9 +26,11 @@
 
 namespace rdfHelpers;
 
+use Generator;
 use Iterator;
 use IteratorAggregate;
-use rdfInterface\TermInterface as Term;
+use rdfInterface\TermInterface;
+use rdfInterface\TermCompareInterface;
 
 /**
  * Wrapper making almost anything (e.g. array, generator or a single 
@@ -40,16 +42,16 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
 
     /**
      *
-     * @var Iterator<Term>
+     * @var Iterator<TermInterface>
      */
     private Iterator $iter;
 
     /**
      *
-     * @param array<Term>|Iterator<Term>|IteratorAggregate<Term>|Term $iter
+     * @param array<TermInterface>|Iterator<TermInterface>|IteratorAggregate<TermInterface>|TermInterface $iter
      */
-    public function __construct(array | Iterator | IteratorAggregate | Term $iter) {
-        if ($iter instanceof Term) {
+    public function __construct(array | Iterator | IteratorAggregate | TermInterface $iter) {
+        if ($iter instanceof TermInterface) {
             $iter = [$iter];
         }
         if (is_array($iter)) {
@@ -64,7 +66,7 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
         }
     }
 
-    public function current(): Term {
+    public function current(): TermInterface {
         return $this->iter->current();
     }
 
@@ -82,5 +84,24 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
 
     public function valid(): bool {
         return $this->iter->valid();
+    }
+
+    public function contains(TermCompareInterface $term): bool {
+        foreach ($this->iter as $i) {
+            if ($term->equals($i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * @return Generator<string>
+     */
+    public function getValues(): Generator {
+        foreach ($this->iter as $i) {
+            yield $i->getValue();
+        }
     }
 }
