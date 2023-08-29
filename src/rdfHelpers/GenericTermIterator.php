@@ -26,10 +26,8 @@
 
 namespace rdfHelpers;
 
-use Generator;
 use Iterator;
 use IteratorAggregate;
-use Traversable;
 use rdfInterface\TermInterface;
 use rdfInterface\TermCompareInterface;
 
@@ -80,21 +78,27 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
     public function next(): void {
         do {
             $this->iter->next();
-            $valid = $this->iter->valid() && (!isset($this->skip) || !$this->skip->contains($this->iter->current())) && (!isset($this->intersect) || $this->intersect->contains($this->iter->current()));
-        } while ($valid);
+        } while ($this->iter->valid() && !$this->valid2());
     }
 
     public function rewind(): void {
         $this->iter->rewind();
+        if ($this->iter->valid() && !$this->valid2()) {
+            $this->next();
+        }
     }
 
     public function valid(): bool {
         return $this->iter->valid();
     }
 
+    private function valid2(): bool {
+        return (!isset($this->skip) || !$this->skip->contains($this->iter->current())) && (!isset($this->intersect) || $this->intersect->contains($this->iter->current()));
+    }
+
     public function contains(TermCompareInterface $term): bool {
-        foreach ($this->iter as $i) {
-            if ($term->equals($i)) {
+        foreach ($this as $i) {
+            if ($term->equals($this->current())) {
                 return true;
             }
         }
@@ -103,12 +107,10 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
 
     /**
      * 
-     * @return Generator<string>
+     * @return array<string>
      */
-    public function getValues(): Generator {
-        foreach ($this->iter as $i) {
-            yield $i->getValue();
-        }
+    public function getValues(): array {
+        return array_map(fn($x) => $x->getValue(), iterator_to_array($this->iter));
     }
 
     /**
