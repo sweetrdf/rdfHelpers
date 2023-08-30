@@ -67,8 +67,8 @@ class GenericTermIterator implements \rdfInterface\TermIteratorInterface {
         }
     }
 
-    public function current(): TermInterface {
-        return $this->iter->current();
+    public function current(): TermInterface | null {
+        return $this->iter->valid() ? $this->iter->current() : null;
     }
 
     public function key(): mixed {
