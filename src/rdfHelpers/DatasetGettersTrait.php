@@ -114,9 +114,9 @@ trait DatasetGettersTrait {
      * Returns result of calling the getValue() method on a subject of a first quad matching a given filter or null if no quad matches the filter.
      * 
      * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
-     * @return TermInterface | null
+     * @return mixed
      */
-    public function getSubjectValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): string | null {
+    public function getSubjectValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): mixed {
         return $this->getSubject($filter)?->getValue();
     }
 
@@ -124,9 +124,9 @@ trait DatasetGettersTrait {
      * Returns result of calling the getValue() method on a subject of a first quad matching a given filter or null if no quad matches the filter.
      * 
      * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
-     * @return TermInterface | null
+     * @return mixed
      */
-    public function getPredicateValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): string | null {
+    public function getPredicateValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): mixed {
         return $this->getPredicate($filter)?->getValue();
     }
 
@@ -134,9 +134,9 @@ trait DatasetGettersTrait {
      * Returns result of calling the getValue() method on a subject of a first quad matching a given filter or null if no quad matches the filter.
      * 
      * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
-     * @return TermInterface | null
+     * @return mixed
      */
-    public function getObjectValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): string | null {
+    public function getObjectValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): mixed {
         return $this->getObject($filter)?->getValue();
     }
 
@@ -144,9 +144,9 @@ trait DatasetGettersTrait {
      * Returns result of calling the getValue() method on a subject of a first quad matching a given filter or null if no quad matches the filter.
      * 
      * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
-     * @return TermInterface | null
+     * @return mixed
      */
-    public function getGraphValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): string | null {
+    public function getGraphValue(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): mixed {
         return $this->getGraph($filter)?->getValue();
     }
 }
