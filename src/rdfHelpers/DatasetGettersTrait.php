@@ -26,6 +26,11 @@
 
 namespace rdfHelpers;
 
+use rdfInterface\QuadCompareInterface;
+use rdfInterface\QuadIteratorInterface;
+use rdfInterface\QuadIteratorAggregateInterface;
+use rdfInterface\TermIteratorInterface;
+
 /**
  *
  * @author zozlak
