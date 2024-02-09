@@ -15,7 +15,7 @@
     "require": {
         "php": ">=8.0",
         "zozlak/rdf-constants": "^1.1",
-        "sweetrdf/rdf-interface": "dev-master"
+        "sweetrdf/rdf-interface": "^2.0.0-RC7"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^10",
-        "phpstan/phpstan": "*"
+        "phpstan/phpstan": "^1"
     },
     "autoload-dev": {
         "psr-4": {
