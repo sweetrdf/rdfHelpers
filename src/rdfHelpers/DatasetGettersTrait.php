@@ -31,6 +31,7 @@ use rdfInterface\QuadIteratorInterface;
 use rdfInterface\QuadIteratorAggregateInterface;
 use rdfInterface\TermIteratorInterface;
 use rdfInterface\TermInterface;
+use rdfInterface\NamedNodeInterface;
 
 /**
  *
