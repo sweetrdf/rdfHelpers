@@ -84,9 +84,9 @@ trait DatasetGettersTrait {
      * Fetches subject of a first quad matching a given filter or null if no quad matches the filter.
      * 
      * @param QuadCompareInterface|QuadIteratorInterface|QuadIteratorAggregateInterface|callable|null $filter
-     * @return TermInterface | null
+     * @return NameNodeInterface | null
      */
-    public function getPredicate(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): TermInterface | null {
+    public function getPredicate(QuadCompareInterface | QuadIteratorInterface | QuadIteratorAggregateInterface | callable | null $filter = null): NamedNodeInterface | null {
         return $this->listPredicates($filter)->current();
     }
 
